@@ -18,7 +18,6 @@ POETRY_CACHE_DIR=/tmp/poetry_cache
 
 # Install dependencies in a cache
 RUN --mount=type=cache,target=/tmp/poetry_cache \
-    poetry add poetry && \
     PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring \
     poetry install --only main --no-root
 
@@ -38,6 +37,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa &&  \
     rm -rf /var/lib/apt/lists/* 
 RUN update-alternatives --install /usr/local/bin/python python \
     /usr/bin/python3.10 10
+RUN pip3 install poetry==1.8.2
 
 # copy source install requirements
 COPY --from=builder /src/ /src/
