@@ -1,1 +1,37 @@
-{"service_type": "get_molecule_property", "service_name": "get molecule properties 1", "subject": "SMILES", "description": "Retrieves molecule properties for valid property types", "valid_types": ["molecular_weight", "number_of_aromatic_rings", "number_of_h_acceptors", "number_of_h_donors", "number_of_atoms", "number_of_rings", "number_of_rotatable_bonds", "number_of_large_rings", "number_of_heterocycles", "number_of_stereocenters", "is_scaffold", "bertz", "tpsa", "logp", "qed", "plogp", "penalized_logp", "lipinski", "sas", "esol"], "type_description": {}, "parameters": [], "required_parameters": [], "category": "properties", "sub_category": "molecules", "wheel_package": "", "GPU": false, "persistent": true, "help": ""}
+{
+  "service_type": "get_molecule_property",
+  "service_name": "get molecule properties 1",
+  "subject": "SMILES",
+  "description": "Retrieves molecule properties for valid property types",
+  "valid_types": [
+    "molecular_weight",
+    "number_of_aromatic_rings",
+    "number_of_h_acceptors",
+    "number_of_h_donors",
+    "number_of_atoms",
+    "number_of_rings",
+    "number_of_rotatable_bonds",
+    "number_of_large_rings",
+    "number_of_heterocycles",
+    "number_of_stereocenters",
+    "is_scaffold",
+    "bertz",
+    "tpsa",
+    "logp",
+    "qed",
+    "plogp",
+    "penalized_logp",
+    "lipinski",
+    "sas",
+    "esol"
+  ],
+  "type_description": {},
+  "parameters": [],
+  "required_parameters": [],
+  "category": "properties",
+  "sub_category": "molecules",
+  "wheel_package": "",
+  "GPU": false,
+  "persistent": true,
+  "help": ""
+}

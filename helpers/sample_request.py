@@ -94,7 +94,9 @@ tests.append(
                 "sas",
                 "esol",
             ],
-            "subjects": ["C12C=CC=NN1C(C#CC1=C(C)C=CC3C(NC4=CC(C(F)(F)F)=CC=C4)=NOC1=3)=CN=2"],
+            "subjects": [
+                "C12C=CC=NN1C(C#CC1=C(C)C=CC3C(NC4=CC(C(F)(F)F)=CC=C4)=NOC1=3)=CN=2"
+            ],
         },
         "api_key": "api-dthgwrhrthrtrth",
     }
@@ -176,7 +178,14 @@ tests.append(
         "service_name": "get protein properties 1",
         "service_type": "get_protein_property",
         "parameters": {
-            "property_type": ["length", "boman_index", "aliphaticity", "hydrophobicity", "aromaticity", "instability"],
+            "property_type": [
+                "length",
+                "boman_index",
+                "aliphaticity",
+                "hydrophobicity",
+                "aromaticity",
+                "instability",
+            ],
             "subjects": ["KFLIYQMECSTMIFGL"],
             "subject_type": "protein",
         },

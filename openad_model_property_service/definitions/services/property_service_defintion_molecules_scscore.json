@@ -1,1 +1,34 @@
-{"service_type": "get_molecule_property", "service_name": "get molecule scscore", "subject": "SMILES", "description": "", "valid_types": ["scscore"], "type_description": {}, "parameters": {"score_scale": {"title": "Score Scale", "default": 5, "type": "integer"}, "fp_len": {"title": "Fp Len", "default": 1024, "type": "integer"}, "fp_rad": {"title": "Fp Rad", "default": 2, "type": "integer"}}, "required_parameters": [], "category": "properties", "sub_category": "molecules", "wheel_package": "", "GPU": false, "persistent": true, "help": ""}
+{
+  "service_type": "get_molecule_property",
+  "service_name": "get molecule scscore",
+  "subject": "SMILES",
+  "description": "",
+  "valid_types": [
+    "scscore"
+  ],
+  "type_description": {},
+  "parameters": {
+    "score_scale": {
+      "title": "Score Scale",
+      "default": 5,
+      "type": "integer"
+    },
+    "fp_len": {
+      "title": "Fp Len",
+      "default": 1024,
+      "type": "integer"
+    },
+    "fp_rad": {
+      "title": "Fp Rad",
+      "default": 2,
+      "type": "integer"
+    }
+  },
+  "required_parameters": [],
+  "category": "properties",
+  "sub_category": "molecules",
+  "wheel_package": "",
+  "GPU": false,
+  "persistent": true,
+  "help": ""
+}

@@ -11,8 +11,9 @@ from properties__init__ import (
 )
 
 
-def generate_property_service_defs(target_type, PropertyPredictorFactory, PropertyPredictorRegistry, def_locations):
-
+def generate_property_service_defs(
+    target_type, PropertyPredictorFactory, PropertyPredictorRegistry, def_locations
+):
     if target_type == "molecule":
         input_type = "SMILES"
     elif target_type == "protein":
@@ -41,7 +42,11 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
     service_types = {"default": []}
 
     for property_type in property_types:
-        schema = json.loads(PropertyPredictorRegistry.get_property_predictor_parameters_schema(property_type))
+        schema = json.loads(
+            PropertyPredictorRegistry.get_property_predictor_parameters_schema(
+                property_type
+            )
+        )
         print(schema)
         if "properties" in schema.keys():
             if len(schema["properties"].keys()) > 0:
@@ -65,7 +70,9 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
         service_def = copy.deepcopy(service_property_blank)
         if x == "default":
             service_def["service_name"] = f"get {target_type} properties"
-            service_def["description"] = f"Retrieves {target_type} properties for valid property types"
+            service_def["description"] = (
+                f"Retrieves {target_type} properties for valid property types"
+            )
             valid_types = []
             for y in service_types[x]:
                 for yy in y.keys():
@@ -76,7 +83,9 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
             valid_types = [x]
             service_def["valid_types"] = copy.deepcopy(valid_types)
             if "required_parameters" in service_types[x].keys():
-                service_def["required_parameters"] = service_types[x]["required_parameters"]
+                service_def["required_parameters"] = service_types[x][
+                    "required_parameters"
+                ]
             if "parameters" in service_types[x].keys():
                 service_def["parameters"] = service_types[x]["parameters"]
         service_def["sub_category"] = f"{target_type}s"
@@ -99,15 +108,29 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
         if len(x["valid_types"]) > 1:
             i += 1
             x["service_name"] = f"get {target_type} properties " + str(i)
-            handle = open(f"{def_locations}/property_service_defintion_{target_type}s_" + str(i) + ".json", "w")
+            handle = open(
+                f"{def_locations}/property_service_defintion_{target_type}s_"
+                + str(i)
+                + ".json",
+                "w",
+            )
         else:
             handle = open(
-                f"{def_locations}/property_service_defintion_{target_type}s_" + x["valid_types"][0] + ".json", "w"
+                f"{def_locations}/property_service_defintion_{target_type}s_"
+                + x["valid_types"][0]
+                + ".json",
+                "w",
             )
         handle.write(json.dumps(x))
         handle.close()
 
 
-generate_property_service_defs("molecule", MOLECULE_PROPERTY_PREDICTOR_FACTORY, PropertyPredictorRegistry, "./")
-generate_property_service_defs("protein", PROTEIN_PROPERTY_PREDICTOR_FACTORY, PropertyPredictorRegistry, "./")
-generate_property_service_defs("crystal", CRYSTALS_PROPERTY_PREDICTOR_FACTORY, PropertyPredictorRegistry, "./")
+generate_property_service_defs(
+    "molecule", MOLECULE_PROPERTY_PREDICTOR_FACTORY, PropertyPredictorRegistry, "./"
+)
+generate_property_service_defs(
+    "protein", PROTEIN_PROPERTY_PREDICTOR_FACTORY, PropertyPredictorRegistry, "./"
+)
+generate_property_service_defs(
+    "crystal", CRYSTALS_PROPERTY_PREDICTOR_FACTORY, PropertyPredictorRegistry, "./"
+)

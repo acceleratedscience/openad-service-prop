@@ -34,9 +34,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends software-proper
 # install python
 RUN add-apt-repository ppa:deadsnakes/ppa &&  \
     apt-get install -y build-essential python3.10 python3.10-dev python3-pip && \
-    rm -rf /var/lib/apt/lists/* 
+    rm -rf /var/lib/apt/lists/*
 RUN update-alternatives --install /usr/local/bin/python python \
     /usr/bin/python3.10 10
+
+# install poetry
 RUN pip3 install poetry==1.8.2
 
 # copy source install requirements

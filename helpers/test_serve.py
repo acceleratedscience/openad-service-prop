@@ -1,10 +1,10 @@
 import requests
+import pandas as pd
+import helpers.sample_request as sample_request
+
 
 Endpoint = "http://0.0.0.0:8080"
 
-import helpers.sample_request as sample_request
-
-import pandas as pd
 
 for test in sample_request.tests:
     response = requests.post(Endpoint + "/service", json=test)

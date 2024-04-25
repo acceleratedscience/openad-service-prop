@@ -4,7 +4,8 @@ import glob
 from pandas import DataFrame
 
 import definitions.services as new_prop_services
-import os, copy
+import os
+import copy
 
 
 # from gt4sd_common.properties import PropertyPredictorRegistry
@@ -57,7 +58,9 @@ def is_valid_service(service: dict):
 def get_services() -> list:
     """pulls the list of available services for"""
     service_list = []
-    service_files = glob.glob(os.path.abspath(os.path.dirname(new_prop_services.__file__) + "/*.json"))
+    service_files = glob.glob(
+        os.path.abspath(os.path.dirname(new_prop_services.__file__) + "/*.json")
+    )
 
     for file in service_files:
         print(file)
@@ -79,7 +82,6 @@ ALL_AVAILABLE_SERVICES = get_services()
 
 
 class service_requester:
-
     property_requestor = None
     valid_services = ["property", "prediction", "generation", "training"]
 
@@ -126,9 +128,11 @@ class service_requester:
         ]:
             return [current_service["service_name"] + "   Not Currently Available"]
         if category == "properties":
-            if self.property_requestor == None:
+            if self.property_requestor is None:
                 self.property_requestor = request_properties()
-            result = self.property_requestor.request(request["service_type"], request["parameters"], request["api_key"])
+            result = self.property_requestor.request(
+                request["service_type"], request["parameters"], request["api_key"]
+            )
 
         return result
 
@@ -138,7 +142,6 @@ class service_requester:
 
 
 class request_properties:
-
     PropertyPredictor_cache = []
 
     def __init__(self) -> None:
@@ -154,29 +157,52 @@ class request_properties:
             for subject in parameters["subjects"]:
                 parms = self.set_parms(property_type, parameters)
                 if parms is None:
-                    results.append({"subject": subject, "property": property_type, "result": "check Parameters"})
+                    results.append(
+                        {
+                            "subject": subject,
+                            "property": property_type,
+                            "result": "check Parameters",
+                        }
+                    )
                     continue
                 # get handle to predictor, if there is not one for the specific propoerty type and Parameter combination then create on
                 for handle in self.PropertyPredictor_cache:
-                    if handle["parms"] == parms and handle["property_type"] == property_type:
+                    if (
+                        handle["parms"] == parms
+                        and handle["property_type"] == property_type
+                    ):
                         predictor = handle["predictor"]
                 if predictor is None:
-                    predictor = PropertyPredictorRegistry.get_property_predictor(name=property_type, parameters=parms)
+                    predictor = PropertyPredictorRegistry.get_property_predictor(
+                        name=property_type, parameters=parms
+                    )
 
                     self.PropertyPredictor_cache.append(
-                        {"property_type": property_type, "parms": parms, "predictor": predictor}
+                        {
+                            "property_type": property_type,
+                            "parms": parms,
+                            "predictor": predictor,
+                        }
                     )
 
                 # Crystaline structure models take data as file sets, the following manages this for the Crystaline property requests
                 if service_type == "get_crystal_property":
-                    tmpdir_cif = common.subject_files_repository("cif", parameters["subjects"])
-                    tmpdir_csv = common.subject_files_repository("csv", parameters["subjects"])
+                    tmpdir_cif = common.subject_files_repository(
+                        "cif", parameters["subjects"]
+                    )
+                    tmpdir_csv = common.subject_files_repository(
+                        "csv", parameters["subjects"]
+                    )
 
-                    if property_type == "metal_nonmetal_classifier" and subject[0].endswith("csv"):
+                    if property_type == "metal_nonmetal_classifier" and subject[
+                        0
+                    ].endswith("csv"):
                         data_module = Path(tmpdir_csv.name + "/crf_data.csv")
                         print(tmpdir_csv.name + "/crf_data.csv")
                         result_fields = ["formulas", "predictions"]
-                    elif not property_type == "metal_nonmetal_classifier" and subject[0].endswith("cif"):
+                    elif not property_type == "metal_nonmetal_classifier" and subject[
+                        0
+                    ].endswith("cif"):
                         data_module = Path(tmpdir_cif.name + "/")
                         result_fields = ["cif_ids", "predictions"]
                     else:
@@ -196,14 +222,28 @@ class request_properties:
                 else:
                     # All other propoerty Requests handled here.
                     try:
-                        results.append({"subject": subject, "property": property_type, "result": predictor(subject)})
-                    except Exception as e:
-                        results.append({"subject": subject, "property": property_type, "result": None})
+                        results.append(
+                            {
+                                "subject": subject,
+                                "property": property_type,
+                                "result": predictor(subject),
+                            }
+                        )
+                    except Exception:
+                        results.append(
+                            {
+                                "subject": subject,
+                                "property": property_type,
+                                "result": None,
+                            }
+                        )
         return results
 
     def set_parms(self, property_type, parameters):
         request_params = {}
-        schema = PropertyPredictorRegistry.get_property_predictor_parameters_schema(property_type)
+        schema = PropertyPredictorRegistry.get_property_predictor_parameters_schema(
+            property_type
+        )
         schema = json.loads(schema)
         if "required" in schema.keys():
             for param in schema["required"]:
@@ -249,11 +289,13 @@ if __name__ == "__main__":
         ts = datetime.timestamp(dt)
         if request["service_type"] != "get_crystal_property":
             print(
-                "\n\n Properties for subject:  " + ", ".join(request["parameters"]["subjects"]) + "   ",
+                "\n\n Properties for subject:  "
+                + ", ".join(request["parameters"]["subjects"])
+                + "   ",
                 datetime.fromtimestamp(ts),
             )
             result = requestor.route_service(request)
-            if result == None:
+            if result is None:
                 print("Not Supported")
             else:
                 print(pd.DataFrame(result))

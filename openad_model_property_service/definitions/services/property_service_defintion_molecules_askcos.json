@@ -1,1 +1,138 @@
-{"service_type": "get_molecule_property", "service_name": "get molecule askcos", "subject": "SMILES", "description": "", "valid_types": ["askcos"], "type_description": {}, "parameters": {"host_ip": {"title": "Host Ip", "description": "The host IP address to access the service", "example": "xx.xx.xxx.xxx", "type": "string"}, "output": {"description": "Main output return type from ASKCOS", "default": "plausibility", "example": "synthesizability", "options": ["plausibility", "num_step", "synthesizability", "price"], "allOf": [{"$ref": "#/definitions/Output"}]}, "save_json": {"title": "Save Json", "default": false, "type": "boolean"}, "file_name": {"title": "File Name", "default": "tree_builder_result.json", "type": "string"}, "num_trials": {"title": "Num Trials", "default": 5, "type": "integer"}, "max_depth": {"title": "Max Depth", "default": 9, "type": "integer"}, "max_branching": {"title": "Max Branching", "default": 25, "type": "integer"}, "expansion_time": {"title": "Expansion Time", "default": 60, "type": "integer"}, "max_ppg": {"title": "Max Ppg", "default": 100, "type": "integer"}, "template_count": {"title": "Template Count", "default": 1000, "type": "integer"}, "max_cum_prob": {"title": "Max Cum Prob", "default": 0.999, "type": "number"}, "chemical_property_logic": {"title": "Chemical Property Logic", "default": "none", "type": "string"}, "max_chemprop_c": {"title": "Max Chemprop C", "default": 0, "type": "integer"}, "max_chemprop_n": {"title": "Max Chemprop N", "default": 0, "type": "integer"}, "max_chemprop_o": {"title": "Max Chemprop O", "default": 0, "type": "integer"}, "max_chemprop_h": {"title": "Max Chemprop H", "default": 0, "type": "integer"}, "chemical_popularity_logic": {"title": "Chemical Popularity Logic", "default": "none", "type": "string"}, "min_chempop_reactants": {"title": "Min Chempop Reactants", "default": 5, "type": "integer"}, "min_chempop_products": {"title": "Min Chempop Products", "default": 5, "type": "integer"}, "filter_threshold": {"title": "Filter Threshold", "default": 0.1, "type": "number"}, "return_first": {"title": "Return First", "default": "true", "type": "string"}}, "required_parameters": ["host_ip"], "category": "properties", "sub_category": "molecules", "wheel_package": "", "GPU": false, "persistent": true, "help": ""}
+{
+  "service_type": "get_molecule_property",
+  "service_name": "get molecule askcos",
+  "subject": "SMILES",
+  "description": "",
+  "valid_types": [
+    "askcos"
+  ],
+  "type_description": {},
+  "parameters": {
+    "host_ip": {
+      "title": "Host Ip",
+      "description": "The host IP address to access the service",
+      "example": "xx.xx.xxx.xxx",
+      "type": "string"
+    },
+    "output": {
+      "description": "Main output return type from ASKCOS",
+      "default": "plausibility",
+      "example": "synthesizability",
+      "options": [
+        "plausibility",
+        "num_step",
+        "synthesizability",
+        "price"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Output"
+        }
+      ]
+    },
+    "save_json": {
+      "title": "Save Json",
+      "default": false,
+      "type": "boolean"
+    },
+    "file_name": {
+      "title": "File Name",
+      "default": "tree_builder_result.json",
+      "type": "string"
+    },
+    "num_trials": {
+      "title": "Num Trials",
+      "default": 5,
+      "type": "integer"
+    },
+    "max_depth": {
+      "title": "Max Depth",
+      "default": 9,
+      "type": "integer"
+    },
+    "max_branching": {
+      "title": "Max Branching",
+      "default": 25,
+      "type": "integer"
+    },
+    "expansion_time": {
+      "title": "Expansion Time",
+      "default": 60,
+      "type": "integer"
+    },
+    "max_ppg": {
+      "title": "Max Ppg",
+      "default": 100,
+      "type": "integer"
+    },
+    "template_count": {
+      "title": "Template Count",
+      "default": 1000,
+      "type": "integer"
+    },
+    "max_cum_prob": {
+      "title": "Max Cum Prob",
+      "default": 0.999,
+      "type": "number"
+    },
+    "chemical_property_logic": {
+      "title": "Chemical Property Logic",
+      "default": "none",
+      "type": "string"
+    },
+    "max_chemprop_c": {
+      "title": "Max Chemprop C",
+      "default": 0,
+      "type": "integer"
+    },
+    "max_chemprop_n": {
+      "title": "Max Chemprop N",
+      "default": 0,
+      "type": "integer"
+    },
+    "max_chemprop_o": {
+      "title": "Max Chemprop O",
+      "default": 0,
+      "type": "integer"
+    },
+    "max_chemprop_h": {
+      "title": "Max Chemprop H",
+      "default": 0,
+      "type": "integer"
+    },
+    "chemical_popularity_logic": {
+      "title": "Chemical Popularity Logic",
+      "default": "none",
+      "type": "string"
+    },
+    "min_chempop_reactants": {
+      "title": "Min Chempop Reactants",
+      "default": 5,
+      "type": "integer"
+    },
+    "min_chempop_products": {
+      "title": "Min Chempop Products",
+      "default": 5,
+      "type": "integer"
+    },
+    "filter_threshold": {
+      "title": "Filter Threshold",
+      "default": 0.1,
+      "type": "number"
+    },
+    "return_first": {
+      "title": "Return First",
+      "default": "true",
+      "type": "string"
+    }
+  },
+  "required_parameters": [
+    "host_ip"
+  ],
+  "category": "properties",
+  "sub_category": "molecules",
+  "wheel_package": "",
+  "GPU": false,
+  "persistent": true,
+  "help": ""
+}

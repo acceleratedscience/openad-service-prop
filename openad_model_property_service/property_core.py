@@ -43,12 +43,15 @@ class PropertyPredictorParameters(BaseModel):
 
 # Base class for property predictors that use S3 artifacts
 class S3Parameters(PropertyPredictorParameters):
-
     algorithm_type: str = "prediction"
 
-    domain: DomainSubmodule = Field(..., example="molecules", description="Submodule of gt4sd_common .properties")
+    domain: DomainSubmodule = Field(
+        ..., example="molecules", description="Submodule of gt4sd_common .properties"
+    )
     algorithm_name: str = Field(..., example="MCA", description="Name of the algorithm")
-    algorithm_version: str = Field(..., example="v0", description="Version of the algorithm")
+    algorithm_version: str = Field(
+        ..., example="v0", description="Version of the algorithm"
+    )
     algorithm_application: str = Field(..., example="Tox21")
 
 
@@ -61,7 +64,6 @@ class ApiTokenParameters(PropertyPredictorParameters):
 
 
 class IpAdressParameters(PropertyPredictorParameters):
-
     host_ip: str = Field(
         ...,
         example="xx.xx.xxx.xxx",
@@ -72,7 +74,9 @@ class IpAdressParameters(PropertyPredictorParameters):
 class PropertyPredictor:
     """PropertyPredictor base class."""
 
-    def __init__(self, parameters: PropertyPredictorParameters = PropertyPredictorParameters()) -> None:
+    def __init__(
+        self, parameters: PropertyPredictorParameters = PropertyPredictorParameters()
+    ) -> None:
         """Construct a PropertyPredictor using the related parameters.
         Args:
             parameters: parameters to configure the predictor.

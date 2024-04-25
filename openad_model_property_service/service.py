@@ -1,12 +1,11 @@
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-
+from call_property_services import service_requester
 from pydantic import BaseModel
-from fastapi import Request
+
 
 app = FastAPI()
-from call_property_services import service_requester
 
 requester = service_requester()
 
@@ -18,9 +17,7 @@ async def health():
 
 @app.post("/service")
 async def service(property_request: dict):
-
     result = requester.route_service(property_request)
-
     return result
 
 

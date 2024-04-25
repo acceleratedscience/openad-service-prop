@@ -1,1 +1,23 @@
-{"service_type": "get_protein_property", "service_name": "get protein properties 1", "subject": "PROTEIN", "description": "Retrieves protein properties for valid property types", "valid_types": ["length", "boman_index", "aliphaticity", "hydrophobicity", "aromaticity", "instability"], "type_description": {}, "parameters": [], "required_parameters": [], "category": "properties", "sub_category": "proteins", "wheel_package": "", "GPU": false, "persistent": true, "help": ""}
+{
+  "service_type": "get_protein_property",
+  "service_name": "get protein properties 1",
+  "subject": "PROTEIN",
+  "description": "Retrieves protein properties for valid property types",
+  "valid_types": [
+    "length",
+    "boman_index",
+    "aliphaticity",
+    "hydrophobicity",
+    "aromaticity",
+    "instability"
+  ],
+  "type_description": {},
+  "parameters": [],
+  "required_parameters": [],
+  "category": "properties",
+  "sub_category": "proteins",
+  "wheel_package": "",
+  "GPU": false,
+  "persistent": true,
+  "help": ""
+}

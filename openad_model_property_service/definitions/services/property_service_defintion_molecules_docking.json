@@ -1,1 +1,60 @@
-{"service_type": "get_molecule_property", "service_name": "get molecule docking", "subject": "SMILES", "description": "", "valid_types": ["docking"], "type_description": {}, "parameters": {"name": {"title": "Name", "default": "pyscreener", "type": "string"}, "receptor_pdb_file": {"title": "Receptor Pdb File", "description": "Path to receptor PDB file", "example": "/tmp/2hbs.pdb", "type": "string"}, "box_center": {"title": "Box Center", "description": "Docking box center", "example": [15.19, 53.903, 16.917], "type": "array", "items": {"type": "integer"}}, "box_size": {"title": "Box Size", "description": "Docking box size", "example": [20, 20, 20], "type": "array", "items": {"type": "number"}}}, "required_parameters": ["receptor_pdb_file", "box_center", "box_size"], "category": "properties", "sub_category": "molecules", "wheel_package": "", "GPU": false, "persistent": true, "help": ""}
+{
+  "service_type": "get_molecule_property",
+  "service_name": "get molecule docking",
+  "subject": "SMILES",
+  "description": "",
+  "valid_types": [
+    "docking"
+  ],
+  "type_description": {},
+  "parameters": {
+    "name": {
+      "title": "Name",
+      "default": "pyscreener",
+      "type": "string"
+    },
+    "receptor_pdb_file": {
+      "title": "Receptor Pdb File",
+      "description": "Path to receptor PDB file",
+      "example": "/tmp/2hbs.pdb",
+      "type": "string"
+    },
+    "box_center": {
+      "title": "Box Center",
+      "description": "Docking box center",
+      "example": [
+        15.19,
+        53.903,
+        16.917
+      ],
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "box_size": {
+      "title": "Box Size",
+      "description": "Docking box size",
+      "example": [
+        20,
+        20,
+        20
+      ],
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "required_parameters": [
+    "receptor_pdb_file",
+    "box_center",
+    "box_size"
+  ],
+  "category": "properties",
+  "sub_category": "molecules",
+  "wheel_package": "",
+  "GPU": false,
+  "persistent": true,
+  "help": ""
+}

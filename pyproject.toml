@@ -53,3 +53,16 @@ requests = "2.31.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+fix = true
+line-length = 88
+# src = ["src"]
+target-version = "py310"
+show-fixes = true
+
+[tool.ruff.lint]
+ignore = [
+    "E722", # Do not use bare `except`
+    "F401", # imported but unused
+]

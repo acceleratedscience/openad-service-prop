@@ -1,1 +1,27 @@
-{"service_type": "get_molecule_property", "service_name": "get molecule activity_against_target", "subject": "SMILES", "description": "", "valid_types": ["activity_against_target"], "type_description": {}, "parameters": {"target": {"title": "Target", "description": "name of the target.", "example": "drd2", "type": "string"}}, "required_parameters": ["target"], "category": "properties", "sub_category": "molecules", "wheel_package": "", "GPU": false, "persistent": true, "help": ""}
+{
+  "service_type": "get_molecule_property",
+  "service_name": "get molecule activity_against_target",
+  "subject": "SMILES",
+  "description": "",
+  "valid_types": [
+    "activity_against_target"
+  ],
+  "type_description": {},
+  "parameters": {
+    "target": {
+      "title": "Target",
+      "description": "name of the target.",
+      "example": "drd2",
+      "type": "string"
+    }
+  },
+  "required_parameters": [
+    "target"
+  ],
+  "category": "properties",
+  "sub_category": "molecules",
+  "wheel_package": "",
+  "GPU": false,
+  "persistent": true,
+  "help": ""
+}
