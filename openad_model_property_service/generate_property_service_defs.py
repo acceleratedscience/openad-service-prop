@@ -62,7 +62,7 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
             service_types["default"].append({property_type: schema})
         for param in service_types[property_type]["parameters"].keys():
             if "allOf" in service_types[property_type]["parameters"][param]:
-                service_types[property_type]["parameters"][param]["allOf"] = "<qualified directory>"
+                service_types[property_type]["parameters"][param]["allOf"] = "qualified directory"
     prime_list = []
     for x in service_types.keys():
         service_def = copy.deepcopy(service_property_blank)
