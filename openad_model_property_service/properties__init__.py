@@ -89,10 +89,27 @@ class PropertyPredictorRegistry:
     """A registry for property predictors."""
 
     @staticmethod
-    def get_property_predictor_parameters_schema(name: str) -> Dict[str, Any]:
-        print(name)
+    def get_property_predictor_doc_description(name: str) -> Dict[str, Any]:
+
         try:
             _, parameters_class = PROPERTY_PREDICTOR_FACTORY[name]
+            if _.__doc__ is None:
+                return "No Description"
+            else:
+                return _.__doc__
+        except KeyError:
+            raise ValueError(
+                f"Property predictor name={name} not supported. Pick one from {AVAILABLE_PROPERTY_PREDICTORS}"
+            )
+
+    @staticmethod
+    def get_property_predictor_parameters_schema(name: str) -> Dict[str, Any]:
+
+        try:
+            _, parameters_class = PROPERTY_PREDICTOR_FACTORY[name]
+
+            schema = parameters_class.schema_json()
+
             return parameters_class.schema_json()
         except KeyError:
             raise ValueError(
@@ -100,9 +117,7 @@ class PropertyPredictorRegistry:
             )
 
     @staticmethod
-    def get_property_predictor(
-        name: str, parameters: Dict[str, Any] = {}
-    ) -> PropertyPredictor:
+    def get_property_predictor(name: str, parameters: Dict[str, Any] = {}) -> PropertyPredictor:
         try:
             property_class, parameters_class = PROPERTY_PREDICTOR_FACTORY[name]
             return property_class(parameters_class(**parameters))
@@ -129,17 +144,13 @@ class PropertyPredictorRegistry:
         Returns:
             A property predictor scorer.
         """
-        scoring_function = PropertyPredictorRegistry.get_property_predictor(
-            name=property_name, parameters=parameters
-        )
+        scoring_function = PropertyPredictorRegistry.get_property_predictor(name=property_name, parameters=parameters)
 
         if scorer_name not in SCORING_FACTORY_WITH_PROPERTY_PREDICTORS:
             raise ValueError(
                 f"Scorer name={scorer_name} not supported. Pick one from {AVAILABLE_SCORING_WITH_PROPERTY_PREDICTORS}"
             )
-        property_predictor_scorer = SCORING_FACTORY_WITH_PROPERTY_PREDICTORS[
-            scorer_name
-        ]
+        property_predictor_scorer = SCORING_FACTORY_WITH_PROPERTY_PREDICTORS[scorer_name]
         return property_predictor_scorer(property_name, scoring_function, target)
 
     @staticmethod
