@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 import glob
 from pandas import DataFrame
-
+import traceback, sys
 import definitions.services as new_prop_services
+from gt4sd_common.exceptions import InvalidItem
 import os
 import copy
 
@@ -58,9 +59,7 @@ def is_valid_service(service: dict):
 def get_services() -> list:
     """pulls the list of available services for"""
     service_list = []
-    service_files = glob.glob(
-        os.path.abspath(os.path.dirname(new_prop_services.__file__) + "/*.json")
-    )
+    service_files = glob.glob(os.path.abspath(os.path.dirname(new_prop_services.__file__) + "/*.json"))
 
     for file in service_files:
         print(file)
@@ -130,9 +129,7 @@ class service_requester:
         if category == "properties":
             if self.property_requestor is None:
                 self.property_requestor = request_properties()
-            result = self.property_requestor.request(
-                request["service_type"], request["parameters"], request["api_key"]
-            )
+            result = self.property_requestor.request(request["service_type"], request["parameters"], request["api_key"])
 
         return result
 
@@ -167,47 +164,75 @@ class request_properties:
                     continue
                 # get handle to predictor, if there is not one for the specific propoerty type and Parameter combination then create on
                 for handle in self.PropertyPredictor_cache:
-                    if (
-                        handle["parms"] == parms
-                        and handle["property_type"] == property_type
-                    ):
+                    if handle["parms"] == parms and handle["property_type"] == property_type:
                         predictor = handle["predictor"]
-                if predictor is None:
-                    predictor = PropertyPredictorRegistry.get_property_predictor(
-                        name=property_type, parameters=parms
-                    )
+                try:
+                    if predictor is None:
+                        predictor = PropertyPredictorRegistry.get_property_predictor(
+                            name=property_type, parameters=parms
+                        )
 
-                    self.PropertyPredictor_cache.append(
-                        {
-                            "property_type": property_type,
-                            "parms": parms,
-                            "predictor": predictor,
-                        }
-                    )
+                        self.PropertyPredictor_cache.append(
+                            {
+                                "property_type": property_type,
+                                "parms": parms,
+                                "predictor": predictor,
+                            }
+                        )
+                except TypeError as e:
+                    print(traceback.print_tb(e.__traceback__))
+                    return {"error": {"Type Error: ": str(e)}}
+                except IndexError as e:
+                    print(traceback.print_tb(e.__traceback__))
+                    return {"error": {"Module Index Error: ": str(e)}}
+                except InvalidItem as e:
+                    print(traceback.print_tb(e.__traceback__))
+                    return {"error": {"Invaliditem: ": str(e)}}
+                except ValueError as e:
+                    print(traceback.print_tb(e.__traceback__))
+                    return {"error": {"Incorrect value: ": str(e)}}
+                except OSError as e:
+                    print(traceback.print_tb(e.__traceback__))
+                    return {"error": {"OS ERROR: ": str(e)}}
+                except Exception as e:
+                    print(traceback.print_tb(e.__traceback__))
+                    return {"error": {"Unknown Error": str(e)}}
 
                 # Crystaline structure models take data as file sets, the following manages this for the Crystaline property requests
                 if service_type == "get_crystal_property":
-                    tmpdir_cif = common.subject_files_repository(
-                        "cif", parameters["subjects"]
-                    )
-                    tmpdir_csv = common.subject_files_repository(
-                        "csv", parameters["subjects"]
-                    )
+                    tmpdir_cif = common.subject_files_repository("cif", parameters["subjects"])
+                    tmpdir_csv = common.subject_files_repository("csv", parameters["subjects"])
 
-                    if property_type == "metal_nonmetal_classifier" and subject[
-                        0
-                    ].endswith("csv"):
+                    if property_type == "metal_nonmetal_classifier" and subject[0].endswith("csv"):
                         data_module = Path(tmpdir_csv.name + "/crf_data.csv")
                         print(tmpdir_csv.name + "/crf_data.csv")
                         result_fields = ["formulas", "predictions"]
-                    elif not property_type == "metal_nonmetal_classifier" and subject[
-                        0
-                    ].endswith("cif"):
+                    elif not property_type == "metal_nonmetal_classifier" and subject[0].endswith("cif"):
                         data_module = Path(tmpdir_cif.name + "/")
                         result_fields = ["cif_ids", "predictions"]
                     else:
                         continue
-                    out = predictor(input=data_module)
+                    try:
+                        out = predictor(input=data_module)
+                    except TypeError as e:
+                        print(traceback.print_tb(e.__traceback__))
+                        return {"error": {"Type Error: ": str(e)}}
+                    except IndexError as e:
+                        print(traceback.print_tb(e.__traceback__))
+                        return {"error": {"Module Index Error: ": str(e)}}
+                    except InvalidItem as e:
+                        print(traceback.print_tb(e.__traceback__))
+                        return {"error": {"Invaliditem: ": str(e)}}
+                    except ValueError as e:
+                        print(traceback.print_tb(e.__traceback__))
+                        return {"error": {"Incorrect value: ": str(e)}}
+                    except OSError as e:
+                        print(traceback.print_tb(e.__traceback__))
+                        return {"error": {"OS ERROR: ": str(e)}}
+                    except Exception as e:
+                        print(traceback.print_tb(e.__traceback__))
+                        return {"error": {"Unknown Error": str(e)}}
+
                     pred_dict = dict(zip(out[result_fields[0]], out[result_fields[1]]))
                     for key in pred_dict:
                         results.append(
@@ -229,7 +254,8 @@ class request_properties:
                                 "result": predictor(subject),
                             }
                         )
-                    except Exception:
+                    except Exception as e:
+                        print(traceback.print_tb(e.__traceback__))
                         results.append(
                             {
                                 "subject": subject,
@@ -241,9 +267,7 @@ class request_properties:
 
     def set_parms(self, property_type, parameters):
         request_params = {}
-        schema = PropertyPredictorRegistry.get_property_predictor_parameters_schema(
-            property_type
-        )
+        schema = PropertyPredictorRegistry.get_property_predictor_parameters_schema(property_type)
         schema = json.loads(schema)
         if "required" in schema.keys():
             for param in schema["required"]:
@@ -289,9 +313,7 @@ if __name__ == "__main__":
         ts = datetime.timestamp(dt)
         if request["service_type"] != "get_crystal_property":
             print(
-                "\n\n Properties for subject:  "
-                + ", ".join(request["parameters"]["subjects"])
-                + "   ",
+                "\n\n Properties for subject:  " + ", ".join(request["parameters"]["subjects"]) + "   ",
                 datetime.fromtimestamp(ts),
             )
             result = requestor.route_service(request)
