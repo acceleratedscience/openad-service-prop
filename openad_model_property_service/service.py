@@ -24,7 +24,7 @@ async def service(property_request: dict):
 
 @app.get("/service")
 async def get_service_defs():
-    """return base64 encoded service list"""
+    """return service definitions"""
     # get service list
     service_list: list = get_services()
     return JSONResponse(service_list)
