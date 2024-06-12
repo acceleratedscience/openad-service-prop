@@ -50,6 +50,15 @@ ENV PATH="/src/.venv/bin:$PATH"
 # install root package
 RUN poetry --directory=/src/ install --only main
 
+# set permissions for OpenShift
+# from https://docs.openshift.com/container-platform/4.5/openshift_images/create-images.html#images-create-guide-general_create-images
+RUN mkdir -p /.config /.cache /.gt4sd /.paccmann && \
+    chgrp -R 0 /.config /.cache /.gt4sd /.paccmann && \
+    chmod -R g=u /.config /.cache /.gt4sd /.paccmann
+# excluding the .venv directory from recursive permissions
+RUN find /src -path /src/.venv -prune -o -print | xargs chgrp 0 && \
+    find /src -path /src/.venv -prune -o -exec chmod g=u {} +
+
 EXPOSE 8080 80
 
 CMD ["/src/.venv/bin/python", "/src/openad_model_property_service/service.py"]
