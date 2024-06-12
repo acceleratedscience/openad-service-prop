@@ -25,7 +25,7 @@
 from typing import Any, Dict, List
 
 # from gt4sd_common.properties.core import PropertyPredictor
-from property_core import PropertyPredictor
+from openad_model_property_service.property_core import PropertyPredictor
 
 from gt4sd_common.properties.scorer import (
     MoleculePropertyPredictorScorer,

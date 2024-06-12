@@ -3,14 +3,14 @@ from pathlib import Path
 import glob
 from pandas import DataFrame
 import traceback, sys
-import definitions.services as new_prop_services
+import openad_model_property_service.definitions.services as new_prop_services
 from gt4sd_common.exceptions import InvalidItem
 import os
 import copy
 
 
 # from gt4sd_common.properties import PropertyPredictorRegistry
-from properties__init__ import PropertyPredictorRegistry, PROPERTY_PREDICTOR_TYPE
+from openad_model_property_service.properties__init__ import PropertyPredictorRegistry, PROPERTY_PREDICTOR_TYPE
 
 # from ray import serve
 import openad_model_property_service.services_common as common

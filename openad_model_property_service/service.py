@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
-from call_property_services import service_requester, get_services
+from openad_model_property_service.call_property_services import service_requester, get_services
 from pydantic import BaseModel
 import json, base64
 
