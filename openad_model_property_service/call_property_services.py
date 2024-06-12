@@ -298,7 +298,7 @@ if __name__ == "__main__":
     dt = datetime.now()
     ts = datetime.timestamp(dt)
     print("Starting", datetime.fromtimestamp(ts))
-    import test_request
+    from helpers.sample_request import tests
     import pandas as pd
 
     requestor = service_requester()
@@ -308,7 +308,7 @@ if __name__ == "__main__":
     print("Service Requestor Loaded ", datetime.fromtimestamp(ts))
     print("----------RUN SERVICES----------------------------------------")
 
-    for request in test_request.tests:
+    for request in tests:
         dt = datetime.now()
         ts = datetime.timestamp(dt)
         if request["service_type"] != "get_crystal_property":
