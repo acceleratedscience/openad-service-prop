@@ -14,10 +14,13 @@ from openad_model_property_service.properties__init__ import (
 def generate_property_service_defs(target_type, PropertyPredictorFactory, PropertyPredictorRegistry, def_locations):
     if target_type == "molecule":
         input_type = "SMILES"
+        example = "[ CCO,CC(=O)OC1=CC=CC=C1C(=O)O ]"
     elif target_type == "protein":
         input_type = "PROTEIN"
+        example = 'NAGGAAACAAAGGCTTACCCGTTATCATTTCCGCAAGAATGCACCCACACGACCATATATCAATGGATGTGGAGT'
     else:
         input_type = "directory"
+        example = "'/tmp/crystals'"
 
     service_property_blank = {
         "service_type": f"get_{target_type}_property",
@@ -80,6 +83,8 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
                         + ": "
                         + PropertyPredictorRegistry.get_property_predictor_doc_description(yy)
                         + "\n"
+                        + f"Example of generating or predicting the property <cmd>{yy}</cmd> for a {target_type}:\n   "
+                        + f"<cmd> get {target_type} property {yy} for {example} using(param=value ...  )</cmd>"
                     )
             service_def["valid_types"] = copy.deepcopy(valid_types)
         else:
