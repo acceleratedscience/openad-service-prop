@@ -17,7 +17,7 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
         example = "[ CCO,CC(=O)OC1=CC=CC=C1C(=O)O ]"
     elif target_type == "protein":
         input_type = "PROTEIN"
-        example = 'NAGGAAACAAAGGCTTACCCGTTATCATTTCCGCAAGAATGCACCCACACGACCATATATCAATGGATGTGGAGT'
+        example = "'NAGGAAACAAAGGCTTACCCGTTATCATTTCCGCAAGAATGCACCCACACGACCATATATCAATGGATGTGGAGT'"
     else:
         input_type = "directory"
         example = "'/tmp/crystals'"
@@ -83,8 +83,8 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
                         + ": "
                         + PropertyPredictorRegistry.get_property_predictor_doc_description(yy)
                         + "\n"
-                        + f"Example of generating or predicting the property <cmd>{yy}</cmd> for a {target_type}:\n   "
-                        + f"<cmd> get {target_type} property {yy} for {example} using(param=value ...  )</cmd>"
+                        + f"Example of generating or predicting the property <cmd>{yy}</cmd> for a {target_type}:\n"
+                        + f"<cmd> get {target_type} property {yy} for {example} using(param=value ...  )</cmd>\n\n"
                     )
             service_def["valid_types"] = copy.deepcopy(valid_types)
         else:
@@ -93,8 +93,10 @@ def generate_property_service_defs(target_type, PropertyPredictorFactory, Proper
                 service_def["description"]
                 + f"  -<cmd>{x}</cmd>"
                 + ": "
-                + PropertyPredictorRegistry.get_property_predictor_doc_description(x)
-                + "\n"
+               + PropertyPredictorRegistry.get_property_predictor_doc_description(x)
+                        + "\n"
+                        + f"Example of generating or predicting the property <cmd>{x}</cmd> for a {target_type}:\n"
+                        + f"<cmd> get {target_type} property {x} for {example} using(param=value ...  )</cmd>\n\n"
             )
             valid_types = [x]
             service_def["valid_types"] = copy.deepcopy(valid_types)
