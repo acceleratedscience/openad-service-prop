@@ -1,27 +1,4 @@
-#FROM python:3.10.14-slim as builder
 
-# install system dependencies
-#RUN apt-get update && apt-get install -y --no-install-recommends \
- #   curl \
-#    git
-
-# Install Poetry
-#RUN pip3 install poetry==1.8.2
-#WORKDIR /src
-#COPY pyproject.toml poetry.lock /src/
-
-# virtual env is created in "/app/.venv" directory
-#ENV POETRY_NO_INTERACTION=1 \
-#POETRY_VIRTUALENVS_IN_PROJECT=1 \
-#POETRY_VIRTUALENVS_CREATE=true \
-#POETRY_CACHE_DIR=/tmp/poetry_cache
-
-# Install dependencies in a cache
-#RUN --mount=type=cache,target=/tmp/poetry_cache \
-#    PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring \
-#    poetry install --only main --no-root
-
-#FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu20.04
 FROM nvidia/cuda:11.8.0-runtime-ubi8
 ENV POETRY_NO_INTERACTION=1 \
 POETRY_VIRTUALENVS_IN_PROJECT=1 \
@@ -30,18 +7,7 @@ POETRY_CACHE_DIR=/tmp/poetry_cache
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Los_Angeles
 
-# update and install system dependencies
-#RUN apt-get update && apt-get install -y --no-install-recommends software-properties-common \
 
-#libsm6 libxext6 libxrender-dev curl git \
-#    && rm -rf /var/lib/apt/lists/*
-
-# install python
-#RUN add-apt-repository ppa:deadsnakes/ppa &&  \
-#    apt-get install -y build-essential python3.10 python3.10-dev python3-pip && \
-#    rm -rf /var/lib/apt/lists/*
-#RUN update-alternatives --install /usr/local/bin/python python \
-#    /usr/bin/python3.10 10
 
 RUN yum update -y && \
     yum install -y \
