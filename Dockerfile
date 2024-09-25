@@ -18,7 +18,9 @@ RUN yum update -y && \
     zlib-devel \
     wget \
     make \
-    libXext libSM libXrender sqlite-devel-3.26.0-19.el8_9.x86_64
+    libXext libSM libXrender sqlite-devel-3.26.0-19.el8_9.x86_64 && \
+    yum clean all && \
+    rm -rf /var/cache/yum
 
 # Download and install Python 3.10.14
 RUN cd /usr/src && \
@@ -51,7 +53,10 @@ RUN pip3.10 install --upgrade pip
 RUN pip3.10 install poetry==1.8.2
 
 # install root package
-RUN poetry --directory=/src/ install --only main
+#RUN poetry --directory=/src/ install --only main
+RUN pip3.10 install --upgrade pip && pip3.10 install poetry==1.8.2   &&\
+poetry --directory=/src/ install --only main  --no-cache \
+&& rm -rf ~/.cache && pip cache purge
 
 # set permissions for OpenShift
 # from https://docs.openshift.com/container-platform/4.5/openshift_images/create-images.html#images-create-guide-general_create-images
