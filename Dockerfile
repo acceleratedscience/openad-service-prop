@@ -54,9 +54,8 @@ RUN pip3.10 install poetry==1.8.2
 
 # install root package
 #RUN poetry --directory=/src/ install --only main
-RUN pip3.10 install --upgrade pip && pip3.10 install poetry==1.8.2   &&\
-poetry --directory=/src/ install --only main  --no-cache \
-&& rm -rf ~/.cache && pip cache purge
+RUN poetry --directory=/src/ install --only main  --no-cache \
+&& rm -rf ~/.cache && rm -rf ~/Library/Caches/pypoetry/artifacts && pip cache purge && rm -rf /tmp/poetry_cache
 
 # set permissions for OpenShift
 # from https://docs.openshift.com/container-platform/4.5/openshift_images/create-images.html#images-create-guide-general_create-images
