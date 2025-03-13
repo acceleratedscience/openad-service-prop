@@ -1,5 +1,5 @@
-
 FROM nvidia/cuda:11.8.0-runtime-ubi8
+
 ENV POETRY_NO_INTERACTION=1 \
 POETRY_VIRTUALENVS_IN_PROJECT=1 \
 POETRY_VIRTUALENVS_CREATE=true \
@@ -54,7 +54,7 @@ RUN pip3.10 install poetry==1.8.2
 
 # install root package
 #RUN poetry --directory=/src/ install --only main
-RUN poetry --directory=/src/ install --only main  --no-cache \
+RUN poetry --directory=/src/ install --only main  --no-cache  \
 && rm -rf ~/.cache && rm -rf ~/Library/Caches/pypoetry/artifacts && pip cache purge && rm -rf /tmp/poetry_cache
 
 # set permissions for OpenShift
