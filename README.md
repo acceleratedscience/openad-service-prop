@@ -1,5 +1,13 @@
 # Property Inference for SMILES
 
+<!--
+The description & support tags are consumed by the generate_docs() script
+in the openad-website repo, to generate the 'Available Services' page:
+https://openad.accelerate.science/docs/model-service/available-services
+-->
+
+<!-- support:apple_silicon:false -->
+
 <!-- description -->
 <!-- /description -->
 
