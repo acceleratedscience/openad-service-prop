@@ -44,7 +44,7 @@ RUN pip3 install poetry==1.8.2
 # copy source install requirements
 COPY --from=builder /src/ /src/
 COPY openad_model_property_service  /src/openad_model_property_service
-COPY Readme.md /src
+COPY README.md /src
 ENV PATH="/src/.venv/bin:$PATH"
 
 # install root package
