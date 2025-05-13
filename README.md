@@ -7,6 +7,7 @@ https://openad.accelerate.science/docs/model-service/available-services
 -->
 
 <!-- support:apple_silicon:false -->
+<!-- support:gcloud:false -->
 
 <!-- description -->
 <!-- /description -->
