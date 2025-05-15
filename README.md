@@ -10,7 +10,7 @@ https://openad.accelerate.science/docs/model-service/available-services
 <!-- support:gcloud:false -->
 
 <!-- description -->
-This OpenAD service provides access to property predictive models in computational chemistry (some in the area of small molecules, others on proteins) and in materials science. For small molecules, input is in SMILES format. For proteins, input is in FASTA format. For materials science, input is in CIF file format. These models were previously offered in [the open-source library, GT4SD](https://github.com/GT4SD/gt4sd-core). 
+This OpenAD service provides access to property predictive models in computational chemistry (some in the area of small molecules, others in proteins) and in materials science. For small molecules, input is in SMILES format. For proteins, input is in FASTA format. For materials science, input is in CIF file format. These models were previously offered in [the open-source library, GT4SD](https://github.com/GT4SD/gt4sd-core). 
 <!-- /description -->
 
 For instructions on how to deploy and use this service in OpenAD, please refer to the [OpenAD docs](https://openad.accelerate.science/docs/model-service/deploying-models).
