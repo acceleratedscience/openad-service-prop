@@ -1,4 +1,4 @@
-# Property Prediction for Small Molecules, Proteins, and Materials Science
+# Properties &nbsp;/&nbsp; Property Prediction for Small Molecules, Proteins, and Materials Science
 
 <!--
 The description & support tags are consumed by the generate_docs() script
