@@ -1,4 +1,4 @@
-# Properties &nbsp;/&nbsp; Property Prediction for SMILES and FASTA Input
+# Properties &nbsp;/&nbsp; Property Prediction for SMILES, FASTA and CIF Input
 
 <!--
 The description & support tags are consumed by the generate_docs() script
